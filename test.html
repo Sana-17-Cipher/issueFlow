@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html>
+<body>
+    <h2>Create an Issue</h2>
+
+    <button onclick="createIssue()">Create Test Issue</button>
+
+    <pre id="result"></pre>
+
+    <script>
+        async function createIssue() {
+            try {
+                const response = await fetch("http://localhost:3000/api/issues", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        title: "Search button broken",
+                        priority: "High"
+                    })
+                });
+
+                const data = await response.json();
+
+                document.getElementById("result").textContent =
+                    JSON.stringify(data, null, 2);
+            } catch (error) {
+                document.getElementById("result").textContent = error.message;
+            }
+        }
+    </script>
+</body>
+</html>
